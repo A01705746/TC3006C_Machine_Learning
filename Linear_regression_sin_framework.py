@@ -4,6 +4,7 @@
   26/08/2022
 '''
 
+from cProfile import label
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -150,7 +151,7 @@ y_pred = [np.dot(x, params)for x in samples_test]
 print ("error_test")
 print(errors_test(y_test, y_pred))
 
-plt.figure(figsize = (10, 8))
+plt.figure(figsize = (8, 6))
 
 # Figura de comportamiento del error por época
 plt.subplot(2, 1, 1)
@@ -161,9 +162,12 @@ plt.title("Error adjustment")
 
 # Comportamiento del error de y_test con y_train
 plt.subplot(2, 1, 2)
-plt.plot([x-y for x, y in zip(y_test, y_pred)])
-plt.xlabel("Index")
-plt.ylabel("y_test - y_pred")
+plt.scatter(range(len(y_test)), y_test, label = 'y_test')
+plt.scatter(range(len(y_test)), y_pred, label = 'y_pred')
+# plt.plot([x-y for x, y in zip(y_test, y_pred)])
+plt.ylabel("y value")
+plt.xlabel("Position")
+plt.legend()
 plt.title("Test data vs predicted data")
 
 plt.show()
